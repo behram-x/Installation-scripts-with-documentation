@@ -13,7 +13,7 @@ dpkg -i zoiper5_5.*_x86_64.deb
 echo "installing zoiper"
 apt install -f
 
-echo -e "\n\n\n\n\n\n\n\n"
+echo -e "\n\n\n\n\"
 echo "**********************************************************"
 echo "Installation done"
 echo "**********************************************************"
