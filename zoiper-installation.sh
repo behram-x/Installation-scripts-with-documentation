@@ -1,19 +1,24 @@
+#!/bin/bash
+# exit when any command fails
+set -e
+
+# keep track of the last executed command
+trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
+# echo an error message before exiting
+trap 'echo "\"${last_command}\" command filed with exit code $?."' EXIT
+
 #zoiper installation
-#download the package form official website
+#Download the package form official website
 
-#! /bin/bash
-
-#In the Downloads folder, run the dpkg tool to install the package.
-cd /Downloads
 echo "unpacking zoiper"
-dpkg -i zoiper5_5.*_x86_64.deb
+dpkg -i Zoiper5_5.5.9_x86_64.deb
 
 #As you load up dpkg, keep in mind that dependencies may fail to install. To correct this issue, run the apt install command with the “f” switch.
 
 echo "installing zoiper"
 apt install -f
 
-echo -e "\n\n\n\n\"
+echo -e "\n\n\n\n"
 echo "**********************************************************"
 echo "Installation done"
 echo "**********************************************************"

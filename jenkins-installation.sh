@@ -2,12 +2,20 @@
 
 #! /bin/bash
 
+# exit when any command fails
+set -e
+
+# keep track of the last executed command
+trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
+# echo an error message before exiting
+trap 'echo "\"${last_command}\" command filed with exit code $?."' EXIT
+
 #It is recommended that you install OpenJDK from the default repositories. Open a terminal window and enter the following:
 #Jenkins will not get installed if the JDK is missing
 echo "Installing JDK"
 
-sudo apt update
-sudo apt install openjdk-11-jdk -y
+apt update
+apt install openjdk-11-jdk -y
 
 #Add the Jenkins Repository
 
@@ -25,17 +33,19 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins
 
 echo "Installing jenkins"
 
-sudo apt update
-sudo apt install jenkins -y
+apt update
+apt install jenkins -y
 
-echo -e "\n\n\n\n\n\n\n\n"
+echo -e "\n\n\n\n\n"
 echo "**********************************************************"
 echo "Installation done"
-echo "Verifying Jenkins Status"
-sudo systemctl status jenkins
 echo "**********************************************************"
+echo "Verifying Jenkins Status"
+echo "Press Q to Exit after verification"
+systemctl status jenkins
 echo "Set up Jenkins"
 echo "To launch and set up Jenkins, open a web browser, and navigate to the IP address of your server
 for eg. http://ip_address_or_domain:8080"
 echo "You should see a page that prompts you to Unlock Jenkins. use this password"
-sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
